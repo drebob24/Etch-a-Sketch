@@ -5,8 +5,13 @@ let grey = false;
 let gridLines = true;
 let rowSize = 16;
 let colSize = 16;
+let color = 'black';
 
-buildGrid();
+//Build Grid and Listen for Mouse Hover on loading of page
+window.addEventListener('DOMContentLoaded', (event) => {
+    buildGrid();
+    colorBox();
+});
 
 function buildGrid(){
     for (let i = 0; i < colSize; i++){
@@ -25,23 +30,25 @@ function buildRow(row){
     }
 }
 
-colorBox();
-
 function colorBox(){
     const boxes = document.querySelectorAll('.box');
     boxes.forEach(box => {
-        box.addEventListener('mouseover', () => {
-            if (bw){
-                box.style.backgroundColor = 'black';
-            }
-            else if (rgb){
-                box.style.backgroundColor = getRandomColor();
-            }
-            else if (grey){
-                colorGreyScale(box);
-            }
-        });
+        box.addEventListener('mouseover', () => chooseColor(box));
     });
+}
+
+function chooseColor(box){
+    switch (color){
+        case 'black':
+            box.style.backgroundColor = 'black';
+            break;
+        case 'rgb':
+            box.style.backgroundColor = getRandomColor();
+            break;
+        case 'grey':
+            colorGreyScale(box);
+            break;
+    }
 }
 
 function getRandomColor(){
@@ -59,29 +66,18 @@ reset.addEventListener('click', () => {
     colorBox();
 });
 
+//EventListeners to modify which style of coloring is used
 const black = document.querySelector('#black');
-black.addEventListener('click', () => {
-    bw = true;
-    rgb = false;
-    grey = false;
-});
+black.addEventListener('click', () => color = 'black');
 
 const rainbow = document.querySelector('#rainbow');
-rainbow.addEventListener('click', () => {
-    bw = false;
-    rgb = true;
-    grey = false;
-});
+rainbow.addEventListener('click', () => color = 'rgb');
 
 const greyscale = document.querySelector('#greyscale');
-greyscale.addEventListener('click', () =>{
-    bw = false;
-    rgb = false;
-    grey = true;
-});
+greyscale.addEventListener('click', () => color = 'grey');
 
 const grid = document.querySelector('#grid');
-grid.addEventListener('change', (e) => {
+grid.addEventListener('change', () => {
     if (grid.checked){
         gridLines = true;
         toggleGridLines();
@@ -119,15 +115,21 @@ gridSize.addEventListener('submit', (e) => {
 function colorGreyScale(cell){
     let shade = cell.style.backgroundColor;
     if (shade === '' || shade === 'black'){
+        //default null and black cells (from Black mode) to 10% less than white
         cell.style.backgroundColor = 'rgb(230, 230, 230)';
     }
-    else{
+    else {
+        //grab the 'r' value from the rgb field and use that to convert to greyscale
+        //obviously not perfect as all 3 values should be considered for true greyscale
+        //but for the purposes of this project let's keep things simpler
         let shadeSlice = parseInt(shade.slice(4,7));
         cell.style.backgroundColor = calculateGreyShade(shadeSlice);
     }
 }
 
 function calculateGreyShade(shade){
+    //run through all 256 possible 'r' values, when there's a match make the box
+    //roughly 10% darker
     for (let i = 255; i >= 0; i--){
         if (shade == i){
             let j = i - 26;
