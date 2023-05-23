@@ -1,6 +1,7 @@
 const container = document.querySelector('.container');
 let bw = true;
 let rgb = false;
+let grey = false;
 let gridLines = true;
 let rowSize = 16;
 let colSize = 16;
@@ -36,18 +37,25 @@ function colorBox(){
             else if (rgb){
                 box.style.backgroundColor = getRandomColor();
             }
+            else if (grey){
+                colorGreyScale(box);
+            }
         });
     });
 }
 
 function getRandomColor(){
-    return randomColor = `#` +(Math.random()*0xFFFFFF<<0).toString(16);
+    let r = Math.floor(Math.random()*255);
+    let g = Math.floor(Math.random()*255);
+    let b = Math.floor(Math.random()*255);
+    return 'rgb(' + r + ', ' + g + ', ' + b + ')';
 }
 
 const reset = document.querySelector('#reset');
 reset.addEventListener('click', () => {
     container.replaceChildren();
     buildGrid();
+    toggleGridLines();
     colorBox();
 });
 
@@ -55,12 +63,21 @@ const black = document.querySelector('#black');
 black.addEventListener('click', () => {
     bw = true;
     rgb = false;
+    grey = false;
 });
 
 const rainbow = document.querySelector('#rainbow');
 rainbow.addEventListener('click', () => {
     bw = false;
     rgb = true;
+    grey = false;
+});
+
+const greyscale = document.querySelector('#greyscale');
+greyscale.addEventListener('click', () =>{
+    bw = false;
+    rgb = false;
+    grey = true;
 });
 
 const grid = document.querySelector('#grid');
@@ -85,6 +102,7 @@ function toggleGridLines(){
     }
 }
 
+//Take user input for Grid Size and rebuild the grid
 const gridSize = document.querySelector('#gridSize');
 gridSize.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -94,5 +112,26 @@ gridSize.addEventListener('submit', (e) => {
     rowSize = rowInput.value;
     colSize = colInput.value;
     buildGrid();
+    toggleGridLines();
     colorBox();
 });
+
+function colorGreyScale(cell){
+    let shade = cell.style.backgroundColor;
+    if (shade === '' || shade === 'black'){
+        cell.style.backgroundColor = 'rgb(230, 230, 230)';
+    }
+    else{
+        let shadeSlice = parseInt(shade.slice(4,7));
+        cell.style.backgroundColor = calculateGreyShade(shadeSlice);
+    }
+}
+
+function calculateGreyShade(shade){
+    for (let i = 255; i >= 0; i--){
+        if (shade == i){
+            let j = i - 26;
+            return 'rgb(' + j + ', ' + j + ', ' + j + ')';
+        }
+    }
+}
