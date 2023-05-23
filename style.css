@@ -8,3 +8,8 @@
     display: flex;
     justify-content: center;
 }
+
+.modifiers {
+    text-align: center;
+    margin-top: 24px;
+}

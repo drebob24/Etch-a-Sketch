@@ -1,4 +1,7 @@
 const container = document.querySelector('.container');
+let bw = true;
+let rgb = false;
+let gridLines = true;
 
 buildGrid();
 
@@ -25,7 +28,57 @@ function colorBox(){
     const boxes = document.querySelectorAll('.box');
     boxes.forEach(box => {
         box.addEventListener('mouseover', () => {
-            box.style.backgroundColor = 'black';
-        });   
+            if (bw){
+                box.style.backgroundColor = 'black';
+            }
+            else if (rgb){
+                box.style.backgroundColor = getRandomColor();
+            }
+        });
     });
+}
+
+function getRandomColor(){
+    return randomColor = `#` +(Math.random()*0xFFFFFF<<0).toString(16);
+}
+
+const reset = document.querySelector('#reset');
+reset.addEventListener('click', () => {
+    container.replaceChildren();
+    buildGrid();
+    colorBox();
+});
+
+const black = document.querySelector('#black');
+black.addEventListener('click', () => {
+    bw = true;
+    rgb = false;
+});
+
+const rainbow = document.querySelector('#rainbow');
+rainbow.addEventListener('click', () => {
+    bw = false;
+    rgb = true;
+});
+
+const grid = document.querySelector('#grid');
+grid.addEventListener('change', (e) => {
+    if (grid.checked){
+        gridLines = true;
+        toggleGridLines();
+    }
+    else{
+        gridLines = false;
+        toggleGridLines();
+    }
+})
+
+function toggleGridLines(){
+    const boxes = document.querySelectorAll('.box');
+    if (gridLines){
+        boxes.forEach(box => box.style.border = 'solid 2px black');
+    }
+    else {
+        boxes.forEach(box => box.style.border = '0');
+    }
 }
