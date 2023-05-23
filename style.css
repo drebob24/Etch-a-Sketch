@@ -1,15 +1,30 @@
 .box {
-    border : solid red 2px;
-    height: 30px;
-    width: 30px;
+    border : solid red 1px;
+    flex: 1 1 auto;
 }
 
 .row {
     display: flex;
-    justify-content: center;
+    flex: 1 1 auto;
 }
 
 .modifiers {
     text-align: center;
     margin-top: 24px;
 }
+
+input[type=text] {
+    width: 40px;
+    padding: 2px 6px;
+    margin: 6px;
+    box-sizing: border-box;
+}
+
+.container {
+    text-align: center;
+    height: 640px;
+    width: 640px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+ }

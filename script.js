@@ -2,11 +2,13 @@ const container = document.querySelector('.container');
 let bw = true;
 let rgb = false;
 let gridLines = true;
+let rowSize = 16;
+let colSize = 16;
 
 buildGrid();
 
 function buildGrid(){
-    for (let i = 0; i < 16; i++){
+    for (let i = 0; i < colSize; i++){
         const grid = document.createElement('div');
         grid.classList.add('row');
         container.appendChild(grid);
@@ -15,7 +17,7 @@ function buildGrid(){
 }
 
 function buildRow(row){
-    for (let j = 0; j < 16; j++){
+    for (let j = 0; j < rowSize; j++){
         const box = document.createElement('div');
         box.classList.add('box');
         row.appendChild(box);
@@ -76,9 +78,21 @@ grid.addEventListener('change', (e) => {
 function toggleGridLines(){
     const boxes = document.querySelectorAll('.box');
     if (gridLines){
-        boxes.forEach(box => box.style.border = 'solid 2px black');
+        boxes.forEach(box => box.style.border = 'solid 1px black');
     }
     else {
         boxes.forEach(box => box.style.border = '0');
     }
 }
+
+const gridSize = document.querySelector('#gridSize');
+gridSize.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let rowInput = document.getElementById('rows');
+    let colInput = document.getElementById('cols');
+    container.replaceChildren();
+    rowSize = rowInput.value;
+    colSize = colInput.value;
+    buildGrid();
+    colorBox();
+});
