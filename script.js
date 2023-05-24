@@ -2,7 +2,7 @@ const container = document.querySelector('.container');
 let gridLines = true;
 let rowSize = 16;
 let colSize = 16;
-let color = 'rgb(0, 0, 0)';
+let color = 'black';
 
 //Build Grid and Listen for Mouse Hover on loading of page
 window.addEventListener('DOMContentLoaded', (event) => {
