@@ -10,19 +10,24 @@
         <div class="container"> </div>
 
         <div class="modifiers">
-        <button id="reset" class="mode">RESET</button>
-        <button id="black" class="mode">BLACK</button>
-        <button id="rainbow" class="mode">RAINBOW</button>
-        <button id="greyscale" class="mode">GREYSCALE</button>
-        <span>GRID: <input type="checkbox" id="grid" class="slider" checked></span>
-
-        <form action="" id="gridSize">
-            <label for="rows">Rows:</label>
-            <input type="number" id="rows" max="100" placeholder="16" required>
-            <label for="cols">Columns:</label>
-            <input type="number" id="cols" max="100" placeholder="16" required>
-            <button type="submit" class="submit">Submit</button>
-        </form>
+            <div class="toprow">
+                <button id="reset" class="mode">RESET</button>
+                <button id="black" class="mode">BLACK</button>
+                <button id="rainbow" class="mode">RAINBOW</button>
+                <button id="greyscale" class="mode">GREYSCALE</button>
+                <label for="grid" class="toggle">
+                    <span>GRID: </span>
+                    <input type="checkbox" id="grid" class="toggle__input" checked>
+                    <div class="toggle__fill"></div>
+                </label>
+            </div>
+            <form action="" id="gridSize">
+                <label for="rows">Rows:</label>
+                <input type="number" id="rows" max="100" placeholder="16" required>
+                <label for="cols">Columns:</label>
+                <input type="number" id="cols" max="100" placeholder="16" required>
+                <button type="submit" class="submit">Submit</button>
+            </form>
         </div>
     </body>
 

@@ -64,6 +64,8 @@ form, #grid {
 span {
     font-size: 22px;
     margin-left: 12px;
+    margin-right: 6px;
+    font-weight: 800;
 }
 
 button {
@@ -75,7 +77,7 @@ button, h1, input {
     box-shadow: 6px 6px 0 0 rgb(0,0,0);
 }
 
-input {
+input, .toggle__fill {
     box-shadow: 4px 4px 0 0 rgb(0,0,0);
 }
 
@@ -88,4 +90,50 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+.toggle {
+    --width: 60px;
+    --height: calc(var(--width)/2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.toggle__input {
+    display: none;
+}
+
+.toggle__fill {
+    position: relative;
+    width: var(--width);
+    height: var(--height);
+    background-color: black;
+    transition: background 0.2s;
+}
+
+.toggle__input:checked ~ .toggle__fill{
+    background-color: rgb(37, 157, 255);
+}
+
+.toggle__fill::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    height: 26px;
+    width: 26px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .25);
+    transition: transform 0.2s;
+}
+
+.toggle__input:checked ~ .toggle__fill::after {
+    transform: translateX(var(--height));
+}
+
+.toprow {
+    display: flex;
+    justify-content: center;
+
 }
