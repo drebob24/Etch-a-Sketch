@@ -1,11 +1,8 @@
 const container = document.querySelector('.container');
-let bw = true;
-let rgb = false;
-let grey = false;
 let gridLines = true;
 let rowSize = 16;
 let colSize = 16;
-let color = 'black';
+let color = 'rgb(0, 0, 0)';
 
 //Build Grid and Listen for Mouse Hover on loading of page
 window.addEventListener('DOMContentLoaded', (event) => {
@@ -40,7 +37,7 @@ function colorBox(){
 function chooseColor(box){
     switch (color){
         case 'black':
-            box.style.backgroundColor = 'black';
+            box.style.backgroundColor = 'rgb(0, 0, 0)';
             break;
         case 'rgb':
             box.style.backgroundColor = getRandomColor();
@@ -113,27 +110,39 @@ gridSize.addEventListener('submit', (e) => {
 });
 
 function colorGreyScale(cell){
-    let shade = cell.style.backgroundColor;
-    if (shade === '' || shade === 'black'){
-        //default null and black cells (from Black mode) to 10% less than white
+    let boxColor = cell.style.backgroundColor;
+
+    //Split values of the string 'rgb(val1, val2, val3)' into an array
+    let rgb = boxColor.slice(
+        boxColor.indexOf('(') + 1,
+        boxColor.indexOf(')')
+    ).split(', ');
+                
+    if (boxColor === ''){
+        //default null "white" cells 10% less than white
         cell.style.backgroundColor = 'rgb(230, 230, 230)';
     }
+    //Check if box is already grey, if not make grey
+    else if (rgb[0] !== rgb[1] && rgb[0] !== rgb[2]){
+        cell.style.backgroundColor = convertToGrey(rgb[0], rgb[1], rgb[2]);
+    }
     else {
-        //grab the 'r' value from the rgb field and use that to convert to greyscale
-        //obviously not perfect as all 3 values should be considered for true greyscale
-        //but for the purposes of this project let's keep things simpler
-        let shadeSlice = parseInt(shade.slice(4,7));
-        cell.style.backgroundColor = calculateGreyShade(shadeSlice);
+        cell.style.backgroundColor = darkenBox(rgb[0]);
     }
 }
 
-function calculateGreyShade(shade){
+function darkenBox(shade){
     //run through all 256 possible 'r' values, when there's a match make the box
     //roughly 10% darker
     for (let i = 255; i >= 0; i--){
         if (shade == i){
             let j = i - 26;
-            return 'rgb(' + j + ', ' + j + ', ' + j + ')';
+            return 'rgb(' + j + ', ' + j + ', ' + j + ')'
         }
     }
+}
+
+function convertToGrey(red, green, blue){
+    let val = (Number(red) + Number(green) + Number(blue)) / 3;
+    return 'rgb(' + val + ', ' + val + ', ' + val + ')'
 }
