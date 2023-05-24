@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="style.css">
         <script src="script.js" defer></script>
     </head>
+        <h1 class="shadow">Etch-A-Sketch</h1>
         <div class="container"> </div>
 
         <div class="modifiers">
@@ -13,14 +14,14 @@
         <button id="black" class="mode">BLACK</button>
         <button id="rainbow" class="mode">RAINBOW</button>
         <button id="greyscale" class="mode">GREYSCALE</button>
-        <span>GRID: <input type="checkbox" id="grid" checked></span>
+        <span>GRID: <input type="checkbox" id="grid" class="slider" checked></span>
 
         <form action="" id="gridSize">
             <label for="rows">Rows:</label>
-            <input type="text" id="rows" placeholder="16" required>
+            <input type="number" id="rows" max="100" placeholder="16" required>
             <label for="cols">Columns:</label>
-            <input type="text" id="cols" placeholder="16" required>
-            <button type="submit">Submit</button>
+            <input type="number" id="cols" max="100" placeholder="16" required>
+            <button type="submit" class="submit">Submit</button>
         </form>
         </div>
     </body>

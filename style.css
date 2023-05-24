@@ -1,3 +1,10 @@
+html {
+    text-align: center;
+    background: rgb(255,242,173);
+    background: linear-gradient(90deg, rgba(255,242,173,1) 29%, rgba(252,209,78,1) 100%);
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
 .box {
     border : solid black 1px;
     flex: 1 1 auto;
@@ -9,22 +16,76 @@
 }
 
 .modifiers {
-    text-align: center;
-    margin-top: 24px;
+    margin-top: 18px;
 }
 
-input[type=text] {
-    width: 40px;
-    padding: 2px 6px;
+input[type=number] {
+    width: 50px;
+    padding: 4px 4px;
     margin: 6px;
     box-sizing: border-box;
+    font-size: 18px;        
 }
 
 .container {
-    text-align: center;
-    height: 640px;
-    width: 640px;
+    height: 608px;
+    width: 608px;
     margin: auto;
     display: flex;
     flex-direction: column;
- }
+    background-color: white;
+    box-shadow: 8px 8px 0 0 rgb(0,0,0);
+
+}
+
+h1 {
+    font-size: 44px;
+    border: 2px solid black;
+    margin: 26px auto;
+    width: 500px;
+}
+
+.mode {
+    font-size: 20px;
+    padding: 8px 16px;
+    margin: 8px 4px;
+}
+
+form, #grid {
+    font-size: 24px;
+}
+
+.submit {
+    font-size: 16px;
+    padding: 8px 16px;
+    margin: 8px 4px;
+}
+
+span {
+    font-size: 22px;
+    margin-left: 12px;
+}
+
+button {
+    border: none;
+    background-color: coral;
+}
+
+button, h1, input {
+    box-shadow: 6px 6px 0 0 rgb(0,0,0);
+}
+
+input {
+    box-shadow: 4px 4px 0 0 rgb(0,0,0);
+}
+
+button:active {
+    transform: translateY(4px);
+    box-shadow: 2px 2px 0 0 rgb(0,0,0);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
