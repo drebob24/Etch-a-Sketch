@@ -134,7 +134,7 @@ function colorGreyScale(cell){
 function darkenBox(shade){
     //run through all 256 possible 'r' values, when there's a match make the box
     //roughly 10% darker
-    for (let i = 255; i >= 0; i--){
+    for (let i = 255; i > 0; i--){
         if (shade == i){
             let j = i - 26;
             return 'rgb(' + j + ', ' + j + ', ' + j + ')'
